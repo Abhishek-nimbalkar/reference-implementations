@@ -36,68 +36,68 @@ const validateLogs = (dirPath) => {
 
   // ON_SEARCH API
 
-  let onSrchResp = checkOnSearch(dirPath, msgIdSet);
+  // let onSrchResp = checkOnSearch(dirPath, msgIdSet);
 
-  //SELECT API
+  // //SELECT API
 
-  let slctResp = checkSelect(dirPath, msgIdSet);
+  // let slctResp = checkSelect(dirPath, msgIdSet);
 
-  // //ON_SELECT API
+  // // //ON_SELECT API
 
-  let onSlctResp = checkOnSelect(dirPath, msgIdSet);
+  // let onSlctResp = checkOnSelect(dirPath, msgIdSet);
 
-  // //INIT API
+  // // //INIT API
 
-  let initResp = checkInit(dirPath, msgIdSet);
+  // let initResp = checkInit(dirPath, msgIdSet);
 
-  // //ON_INIT API
+  // // //ON_INIT API
 
-  let onInitResp = checkOnInit(dirPath, msgIdSet);
+  // let onInitResp = checkOnInit(dirPath, msgIdSet);
 
-  // //CONFIRM API
+  // // //CONFIRM API
 
-  let cnfrmResp = checkConfirm(dirPath, msgIdSet);
+  // let cnfrmResp = checkConfirm(dirPath, msgIdSet);
 
-  // //ON_CONFIRM API
+  // // //ON_CONFIRM API
 
-  let onCnfrmResp = checkOnConfirm(dirPath, msgIdSet);
+  // let onCnfrmResp = checkOnConfirm(dirPath, msgIdSet);
 
-  // //STATUS API
-  let statResp = checkStatus(dirPath, msgIdSet);
+  // // //STATUS API
+  // let statResp = checkStatus(dirPath, msgIdSet);
 
-  // //ON_STATUS API
+  // // //ON_STATUS API
 
-  let onStatResp = checkOnStatus(dirPath, msgIdSet);
+  // let onStatResp = checkOnStatus(dirPath, msgIdSet);
 
-  // //UPDATE API
+  // // //UPDATE API
 
-  let updtResp = checkUpdate(dirPath, msgIdSet);
+  // let updtResp = checkUpdate(dirPath, msgIdSet);
 
-  // //ON_UPDATE API
+  // // //ON_UPDATE API
 
-  let onUpdtResp = checkOnUpdate(dirPath, msgIdSet);
+  // let onUpdtResp = checkOnUpdate(dirPath, msgIdSet);
 
-  // //TRACK API
+  // // //TRACK API
 
-  let trckResp = checkTrack(dirPath, msgIdSet);
+  // let trckResp = checkTrack(dirPath, msgIdSet);
 
-  // //ON_TRACK API
+  // // //ON_TRACK API
 
-  let onTrckResp = checkOnTrack(dirPath, msgIdSet);
+  // let onTrckResp = checkOnTrack(dirPath, msgIdSet);
 
-  // //CANCEL API
+  // // //CANCEL API
 
-  let cnclResp = checkCancel(dirPath, msgIdSet);
+  // let cnclResp = checkCancel(dirPath, msgIdSet);
 
-  // //ON_CANCEL API
+  // // //ON_CANCEL API
 
-  let onCnclResp = checkOnCancel(dirPath, msgIdSet);
+  // let onCnclResp = checkOnCancel(dirPath, msgIdSet);
 
-  // //SUPPORT API
-  let sprtResp = checkSupport(dirPath, msgIdSet);
+  // // //SUPPORT API
+  // let sprtResp = checkSupport(dirPath, msgIdSet);
 
-  // //ON_SUPPORT API
-  let onSprtResp = checkOnSupport(dirPath, msgIdSet);
+  // // //ON_SUPPORT API
+  // let onSprtResp = checkOnSupport(dirPath, msgIdSet);
 
   let logReport = "";
 

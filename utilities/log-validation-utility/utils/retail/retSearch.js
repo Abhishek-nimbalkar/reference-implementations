@@ -19,6 +19,7 @@ const checkSearch = (dirPath, msgIdSet) => {
       dao.setValue("msgId", search.context.message_id);
       dao.setValue("city", search.context.city);
       msgIdSet.add(search.context.message_id);
+      console.log('msgIdSet=============', dao)
       if (!res.valid) {
         Object.assign(srchObj, res.ERRORS);
       }
