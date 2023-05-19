@@ -15,12 +15,10 @@ module.exports = {
             type: "string",
           },
           action: {
-            type: "string",
-            const: "update",
+            type: "string"
           },
           core_version: {
-            type: "string",
-            const: "1.1.0",
+            type: "string"
           },
           bap_id: {
             type: "string",

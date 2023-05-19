@@ -31,7 +31,7 @@ module.exports = {
         },
         bpp_uri: {
           type: "string",
-          format: "",
+          format: "uri",
         },
         transaction_id: {
           type: "string",
@@ -631,8 +631,7 @@ module.exports = {
                                 },
                                 creds: {
                                   type: "array",
-                                  items: [
-                                    {
+                                  items:{
                                       type: "object",
                                       properties: {
                                         id: {
@@ -643,9 +642,11 @@ module.exports = {
                                         },
                                         issuer: {
                                           type: "string",
+                                          default:"VerifiableCredential"
                                         },
                                         issuance_date: {
                                           type: "string",
+                                          format:"date-time"
                                         },
                                         credential_subject: {
                                           type: "object",
@@ -656,11 +657,7 @@ module.exports = {
                                             additionalProperties: {
                                               type: "object",
                                             },
-                                          },
-                                          required: [
-                                            "id",
-                                            "additionalProperties",
-                                          ],
+                                          }
                                         },
                                         credential_schema: {
                                           type: "object",
@@ -671,20 +668,11 @@ module.exports = {
                                             type: {
                                               type: "string",
                                             },
-                                          },
-                                          required: ["id", "type"],
+                                          }
                                         },
-                                      },
-                                      required: [
-                                        "id",
-                                        "type",
-                                        "issuer",
-                                        "issuance_date",
-                                        "credential_subject",
-                                        "credential_schema",
-                                      ],
+                                      }
                                     },
-                                  ],
+    
                                 },
                                 tags: {
                                   type: "object",
@@ -1249,7 +1237,6 @@ module.exports = {
                     "about_info",
                     "url",
                 ],
-                },
             },
             rating: {
               type: "string",
@@ -1823,7 +1810,8 @@ module.exports = {
             updated_at: {
               type: "string",
               format:"date-time"
-            },
+            }
+          },
           required: [
             "id",
             "order_details",
@@ -1834,10 +1822,9 @@ module.exports = {
             "created_at",
             "updated_at",
           ],
-
       },
     },
   },
-  required: ["context"],
 },
-};
+required:["context"]
+}

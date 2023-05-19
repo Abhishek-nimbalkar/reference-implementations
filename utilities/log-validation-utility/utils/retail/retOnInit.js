@@ -13,7 +13,7 @@ const checkOnInit = (dirPath, msgIdSet) => {
     var on_init = fs.readFileSync(dirPath + `/${constants.RET_ONINIT}.json`);
 
     on_init = JSON.parse(on_init);
-    console.log('on_init ===================   ', on_init)
+    // console.log('on_init ===================   ', on_init)
 
     try {
       console.log(`Validating Schema for /${constants.RET_ONINIT} API`);

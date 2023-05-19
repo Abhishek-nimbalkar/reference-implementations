@@ -15,7 +15,7 @@ const statusSchema = require("./statusSchema");
 const updateSchema = require("./updateSchema");
 const cancelSchema = require("./cancelSchema");
 const issueStatusSchema = require("./issueStatusSchema");
-const onissueStatusSchema = require("./onIssueStatusSchema");
+const onIssueStatusSchema = require("./onIssueStatusSchema");
 
 const Ajv = require("ajv");
 const ajv = new Ajv({
@@ -24,7 +24,6 @@ const ajv = new Ajv({
 });
 const addFormats = require("ajv-formats");
 const { error } = require("ajv/dist/vocabularies/applicator/dependencies");
-const onIssueStatusSchema = require("./onIssueStatusSchema");
 addFormats(ajv);
 require("ajv-errors")(ajv);
 
@@ -51,6 +50,7 @@ const formatted_error = (errors) => {
 };
 
 const validate_schema = (data, schema) => {
+  console.log('type of schema ======= ', typeof(schema))
   let error_list = [];
   validate = ajv.compile(schema);
   const valid = validate(data);
@@ -159,12 +159,13 @@ const validate_schema_on_support_retail_for_json = (data) => {
   return formatted_error(error_list);
 };
 const validate_schema_issue_status_retail_for_json = (data) => {
-  error_list = validate_schema(data, (shema = issueStatusSchema));
+  error_list = validate_schema(data, (schema = issueStatusSchema));
   return formatted_error(error_list);
 };
 
 const validate_schema_on_issue_status_retail_for_json = (data) => {
   item_data = data["message"];
+  // console.log('data of validate_schema_on_issue_status_retail_for_json', item_data);
   error_list = validate_schema(item_data, (schema = onIssueStatusSchema));
   return formatted_error(error_list);
 };
@@ -189,5 +190,5 @@ module.exports = {
   validate_schema_on_track_retail_for_json,
   validate_schema_on_update_retail_for_json,
   validate_schema_issue_status_retail_for_json,
-  validate_schema_on_issue_status_retail_for_json
+  validate_schema_on_issue_status_retail_for_json,
 };
