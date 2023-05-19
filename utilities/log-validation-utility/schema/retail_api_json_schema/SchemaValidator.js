@@ -16,6 +16,7 @@ const updateSchema = require("./updateSchema");
 const cancelSchema = require("./cancelSchema");
 const issueStatusSchema = require("./issueStatusSchema");
 const onIssueStatusSchema = require("./onIssueStatusSchema");
+const issueSchema = require("./issueSchema");
 
 const Ajv = require("ajv");
 const ajv = new Ajv({
@@ -170,6 +171,11 @@ const validate_schema_on_issue_status_retail_for_json = (data) => {
   return formatted_error(error_list);
 };
 
+const validate_schema_issue_retail_for_json = (data) => {
+  error_list = validate_schema(data, (schema = issueSchema));
+  return formatted_error(error_list);
+};
+
 module.exports = {
   validate_schema_search_retail_for_json,
   validate_schema_select_retail_for_json,
@@ -180,6 +186,7 @@ module.exports = {
   validate_schema_track_retail_for_json,
   validate_schema_cancel_retail_for_json,
   validate_schema_support_retail_for_json,
+  validate_schema_issue_retail_for_json,
   validate_schema_on_cancel_retail_for_json,
   validate_schema_on_confirm_retail_for_json,
   validate_schema_on_init_retail_for_json,
