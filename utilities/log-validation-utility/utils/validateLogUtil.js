@@ -21,6 +21,7 @@ const checkSupport = require("./retail/retSupport");
 const checkOnSupport = require("./retail/retOnSupport");
 const checkUpdate = require("./retail/retUpdate");
 const checkOnUpdate = require("./retail/retOnUpdate");
+const checkIssueStatus = require("./retail/retIssueStatus");
 
 //TAT in on_select = sumof(time to ship in /on_search and TAT by LSP in logistics /on_search)
 // If non-serviceable in /on_select, there should be domain-error
@@ -32,7 +33,7 @@ const validateLogs = (dirPath) => {
 
   //SEARCH API
 
-  let srchResp = checkSearch(dirPath, msgIdSet);
+  // let srchResp = checkSearch(dirPath, msgIdSet);
 
   // ON_SEARCH API
 
@@ -99,6 +100,9 @@ const validateLogs = (dirPath) => {
   // // //ON_SUPPORT API
   // let onSprtResp = checkOnSupport(dirPath, msgIdSet);
 
+  // //ISSUE_STATUS API
+  let isStatResp=checkIssueStatus(dirPath,msgIdSet);
+
   let logReport = "";
 
   let srchObj = dao.getValue("srchObj");
@@ -119,6 +123,7 @@ const validateLogs = (dirPath) => {
   let onUpdtObj = dao.getValue("onUpdtObj");
   let statObj = dao.getValue("statObj");
   let onStatObj = dao.getValue("onStatObj");
+  let isStatObj=dao.getValue("isStatObj")
 
   try {
     console.log("Flushing DB Data");
@@ -193,6 +198,9 @@ const validateLogs = (dirPath) => {
     logReport += `**/support**\n${getObjValues(sprtObj)}\n`;
   }
 
+  if (!_.isEmpty(onSprtObj)) {
+    logReport += `**/on_support** \n${getObjValues(onSprtObj)}\n`;
+  }
   if (!_.isEmpty(onSprtObj)) {
     logReport += `**/on_support** \n${getObjValues(onSprtObj)}\n`;
   }

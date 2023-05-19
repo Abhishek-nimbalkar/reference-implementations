@@ -45,7 +45,7 @@ module.exports = {
             format: "date-time",
           },
           key:{
-            type:string
+            type:"string"
           },
           ttl: {
             type: "string",
