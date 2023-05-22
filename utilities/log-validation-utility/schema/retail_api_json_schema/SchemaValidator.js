@@ -51,7 +51,6 @@ const formatted_error = (errors) => {
 };
 
 const validate_schema = (data, schema) => {
-  console.log('type of schema ======= ', typeof(schema))
   let error_list = [];
   validate = ajv.compile(schema);
   const valid = validate(data);
@@ -165,9 +164,8 @@ const validate_schema_issue_status_retail_for_json = (data) => {
 };
 
 const validate_schema_on_issue_status_retail_for_json = (data) => {
-  item_data = data["message"];
-  // console.log('data of validate_schema_on_issue_status_retail_for_json', item_data);
-  error_list = validate_schema(item_data, (schema = onIssueStatusSchema));
+  // item_data = data["message"];
+  error_list = validate_schema(data, (schema = onIssueStatusSchema));
   return formatted_error(error_list);
 };
 
