@@ -53,16 +53,7 @@ module.exports = {
         },
       },
       required: [
-        "domain",
-        "action",
-        "country",
-        "city",
-        "core_version",
-        "bap_id",
-        "bap_uri",
-        "transaction_id",
-        "message_id",
-        "timestamp",
+        "ttl"
       ],
     },
     message: {
@@ -160,6 +151,7 @@ module.exports = {
                   },
                 },
               },
+              required:["id"]
             },
             description: {
               type: "object",
@@ -1162,11 +1154,11 @@ module.exports = {
               type: "string",
             },
           },
-          required: ["id", "created_at", "updated_at"],
+          required: ["id", "created_at", "updated_at","issue_type","expected_response_time","expected_resolution_time","status"],
         },
       },
       required: ["issue"],
     },
   },
-  required: ["context", "message"],
+  required: ["context"],
 };

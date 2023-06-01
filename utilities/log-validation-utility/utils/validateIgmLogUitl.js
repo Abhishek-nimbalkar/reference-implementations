@@ -13,14 +13,14 @@ const validateIgmLogs = (dirPath) => {
   //ISSUE API
   let issueResp = checkIssue(dirPath, msgIdSet);
 
-  //ON_ISSUE API
-  let onIssueResp = checkOnIssue(dirPath, msgIdSet);
+//   //ON_ISSUE API
+//   let onIssueResp = checkOnIssue(dirPath, msgIdSet);
 
-  // //ISSUE_STATUS API
-  let issueStatusResp = checkIssueStatus(dirPath, msgIdSet);
+//   // //ISSUE_STATUS API
+//   let issueStatusResp = checkIssueStatus(dirPath, msgIdSet);
 
-  // //ON_ISSUE_STATUS API
-  let onissueStatusResp = checkOnIssueStatus(dirPath, msgIdSet);
+//   // //ON_ISSUE_STATUS API
+//   let onissueStatusResp = checkOnIssueStatus(dirPath, msgIdSet);
 
   let logReport = "";
 

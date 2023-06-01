@@ -13,30 +13,6 @@ const checkIssue = (dirPath) => {
     issue = JSON.parse(issue);
 
     try {
-      console.log(`Checking context for ${constants.RET_SEARCH} API`); //context checking
-      res = checkContext(issue.context, constants.RET_ISSUE);
-      dao.setValue("igmTmpstmp", issue.context.timestamp);
-      dao.setValue("igmTxnId", issue.context.transaction_id);
-      dao.setValue("igmType", issue.message.issue.issue_type);
-      dao.setValue("igmCoreVersion", issue.context.core_version)
-      dao.setValue(
-        "igmDomain",
-        issue.message.issue.complainant_info.contact.phone
-      );
-      // msgIdSet.add(issue.context.message_id);
-      if (!res.valid) {
-        Object.assign(issueObj, res.ERRORS);
-      }
-    } catch (error) {
-      console.log(
-        `!!Some error occurred while checking /${constants.RET_ISSUE} context`,
-        error
-      );
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    try {
       console.log(`Validating Schema for ${constants.RET_ISSUE} API`);
       const vs = validateSchema("retail", constants.RET_ISSUE, issue);
       if (vs != "error") {
@@ -48,9 +24,8 @@ const checkIssue = (dirPath) => {
         error
       );
     }
-
-    console.log(`Checking context for ${constants.RET_ISSUE} API`); //checking context
     try {
+      console.log(`Checking context for ${constants.RET_ISSUE} API`); //checking context
       res = checkContext(issue.context, constants.RET_ISSUE);
       if (!res.valid) {
         Object.assign(issueObj, res.ERRORS);
@@ -63,9 +38,37 @@ const checkIssue = (dirPath) => {
     }
 
     try {
+      console.log(
+        `Storing igmTxnID igmTmpstmp igmType igmCoreVersion igmDomain in /${constants.RET_ISSUE}`
+      ); //storing IgmTxnId IgmTmpstmp igmType igmCoreVersion igmDomain
+      dao.setValue("igmTxnId", issue.context.transaction_id);
+      dao.setValue("igmTmpstmp", issue.context.timestamp);
+      dao.setValue("igmCoreVersion", issue.context.core_version);
+      dao.setValue("igmDomain",issue.context.domain);
+      if (issue.message) {
+        dao.setValue("igmIssueType", issue.message.issue.issue_type);
+      }
+      // msgIdSet.add(issue.context.message_id);
+      if (!res.valid) {
+        Object.assign(issueObj, res.ERRORS);
+      }
+    } catch (error) {
+      console.log(
+        `!!Some error occurred while checking /${constants.RET_ISSUE} context`,
+        error
+      );
+    }
+
+    try {
       console.log(`Phone Number Check for /${constants.RET_ISSUE}`);
       // on_issue.message.issue.issue_actions.respondent_actions[0].updated_by.contact.phone
-      if (!_.inRange(issue.message.issue.complainant_info.contact.phone, 1000000000, 99999999999)) {
+      if (
+        !_.inRange(
+          issue.message.issue.complainant_info.contact.phone,
+          1000000000,
+          99999999999
+        )
+      ) {
         issueObj.Phn = `Phone Number for /${constants.RET_ISSUE} api is not in the valid Range`;
       }
       dao.setValue(
@@ -143,68 +146,6 @@ const checkIssue = (dirPath) => {
         error
       );
     }
-
-    
-    
-
-
-
-    // try {
-    //   console.log(
-    //     `Comparing city of /${constants.RET_SEARCH} and /${constants.RET_ISSUE}`
-    //   );
-    //   if (!_.isEqual(dao.getValue("city"), issue.context.city)) {
-    //     issueObj.city = `City code mismatch in /${constants.RET_SEARCH} and /${constants.RET_ISSUE}`;
-    //   }
-    // } catch (error) {
-    //   console.log(
-    //     `Error while comparing city in /${constants.RET_SEARCH} and /${constants.RET_ISSUE}`,
-    //     error
-    //   );
-    // }
-
-    // try {
-    //   console.log(
-    //     `Comparing timestamp of /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE}`
-    //   );
-    //   if (_.gte(dao.getValue("tmpstmp"), issue.context.timestamp)) {
-    //     issueObj.tmpstmp = `Timestamp for /${constants.RET_ONSEARCH} api cannot be greater than or equal to /${constants.RET_ISSUE} api`;
-    //   }
-    //   dao.setValue("tmpstmp", issue.context.timestamp);
-    // } catch (error) {
-    //   console.log(
-    //     `Error while comparing timestamp for /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE} api`,
-    //     error
-    //   );
-    // }
-
-    // try {
-    //   console.log(
-    //     `Comparing transaction Ids of /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE}`
-    //   );
-    //   dao.setValue("txnId", issue.context.transaction_id);
-    // } catch (error) {
-    //   console.log(
-    //     `Error while comparing transaction ids for /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE} api`,
-    //     error
-    //   );
-    // }
-
-    // try {
-    //   console.log(
-    //     `Comparing Message Ids of /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE}`
-    //   );
-    //   if (_.isEqual(dao.getValue("msgId"), issue.context.message_id)) {
-    //     issueObj.msgId = `Message Id for /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE} api cannot be same`;
-    //   }
-    //   dao.setValue("msgId", issue.context.message_id);
-    // } catch (error) {
-    //   console.log(
-    //     `Error while comparing message ids for /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE} api`,
-    //     error
-    //   );
-    // }
-
     dao.setValue("issueObj", issueObj);
   } catch (err) {
     if (err.code === "ENOENT") {
