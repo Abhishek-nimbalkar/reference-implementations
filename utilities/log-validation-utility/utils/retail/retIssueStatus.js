@@ -12,7 +12,6 @@ const checkIssueStatus = (dirPath, msgIdSet) => {
       dirPath + `/${constants.RET_ISSUE_STATUS}.json`
     );
     issueStatus = JSON.parse(issueStatus);
-    // console.log('issueStatus==============', issueStatus)
     try {
       console.log(`Validating Schema for ${constants.RET_ISSUE_STATUS} API`);
       const vs = validateSchema(
@@ -23,7 +22,6 @@ const checkIssueStatus = (dirPath, msgIdSet) => {
       console.log("DEBUGGG", vs);
 
       if (vs != "error") {
-        // console.log(vs);
         Object.assign(issueStatusObj, vs);
       }
     } catch (error) {
@@ -46,7 +44,6 @@ const checkIssueStatus = (dirPath, msgIdSet) => {
         `!!Some error occurred while checking /${constants.RET_ISSUE_STATUS} context`
       );
     }
-
 
     dao.setValue("issueStatusObj", issueStatusObj);
   } catch (err) {

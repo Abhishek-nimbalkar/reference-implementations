@@ -5,50 +5,50 @@ module.exports = {
       type: "object",
       properties: {
         domain: {
-            type: "string",
-            const: "nic2004:52110",
-          },
-          country: {
-            type: "string",
-          },
-          city: {
-            type: "string",
-          },
-          action: {
-            type: "string"
-          },
-          core_version: {
-            type: "string"
-          },
-          bap_id: {
-            type: "string",
-          },
-          bap_uri: {
-            type: "string",
-          },
-          bpp_id: {
-            type: "string",
-          },
-          bpp_uri: {
-            type: "string",
-          },
-          transaction_id: {
-            type: "string",
-          },
-          message_id: {
-            type: "string",
-          },
-          timestamp: {
-            type: "string",
-            format: "date-time",
-          },
-          key:{
-            type:"string"
-          },
-          ttl: {
-            type: "string",
-            format: "duration",
-          },
+          type: "string",
+          const: "nic2004:52110",
+        },
+        country: {
+          type: "string",
+        },
+        city: {
+          type: "string",
+        },
+        action: {
+          type: "string",
+        },
+        core_version: {
+          type: "string",
+        },
+        bap_id: {
+          type: "string",
+        },
+        bap_uri: {
+          type: "string",
+        },
+        bpp_id: {
+          type: "string",
+        },
+        bpp_uri: {
+          type: "string",
+        },
+        transaction_id: {
+          type: "string",
+        },
+        message_id: {
+          type: "string",
+        },
+        timestamp: {
+          type: "string",
+          format: "date-time",
+        },
+        key: {
+          type: "string",
+        },
+        ttl: {
+          type: "string",
+          format: "duration",
+        },
       },
       required: [
         "domain",
@@ -60,22 +60,19 @@ module.exports = {
         "bap_uri",
         "transaction_id",
         "message_id",
-        "timestamp"
+        "timestamp",
       ],
     },
     message: {
-        type:"object",
-        properties:{
-            id:{
-                type:"string",
-                format:"uuid"
-            },
+      type: "object",
+      properties: {
+        id: {
+          type: "string",
+          format: "uuid",
         },
-        required:[
-            "id"
-        ]
+      },
+      required: ["id"],
     },
   },
   required: ["context", "message"],
 };
-

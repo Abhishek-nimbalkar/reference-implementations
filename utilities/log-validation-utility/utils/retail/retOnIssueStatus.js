@@ -8,13 +8,18 @@ const validateSchema = require("../schemaValidation");
 const checkOnIssueStatus = (dirPath, msgIdSet) => {
   let onIssueStatusObj = {};
   try {
-    let onIssueStatus = fs.readFileSync(dirPath + `/${constants.RET_ONISSUE_STATUS}.json`);
+    let onIssueStatus = fs.readFileSync(
+      dirPath + `/${constants.RET_ONISSUE_STATUS}.json`
+    );
     onIssueStatus = JSON.parse(onIssueStatus);
-    // console.log('onIssueStatus===========', onIssueStatus)
 
     try {
       console.log(`Validating Schema for ${constants.RET_ONISSUE_STATUS} API`);
-      const vs = validateSchema("retail", constants.RET_ONISSUE_STATUS, onIssueStatus);
+      const vs = validateSchema(
+        "retail",
+        constants.RET_ONISSUE_STATUS,
+        onIssueStatus
+      );
       console.log("DEBUGGG", vs);
       if (vs != "error") {
         Object.assign(onIssueStatusObj, vs);

@@ -24,14 +24,12 @@ module.exports = {
         },
         bap_uri: {
           type: "string",
-          format: "uri",
         },
         bpp_id: {
           type: "string",
         },
         bpp_uri: {
           type: "string",
-          format: "uri",
         },
         transaction_id: {
           type: "string",
@@ -50,18 +48,6 @@ module.exports = {
           type: "string",
         },
       },
-      required: [
-        "domain",
-        "country",
-        "city",
-        "action",
-        "core_version",
-        "bap_id",
-        "bap_uri",
-        "transaction_id",
-        "message_id",
-        "timestamp",
-      ],
     },
     message: {
       type: "object",
@@ -71,7 +57,6 @@ module.exports = {
           properties: {
             id: {
               type: "string",
-              format: "uuid",
             },
             complainant_info: {
               type: "object",
@@ -105,14 +90,12 @@ module.exports = {
                           },
                           type: {
                             type: "string",
-                            default: "VerifiableCredential",
                           },
                           issuer: {
                             type: "string",
                           },
                           issuance_date: {
                             type: "string",
-                            format: "date-time",
                           },
                           credential_subject: {
                             type: "object",
@@ -163,6 +146,7 @@ module.exports = {
                     },
                     email: {
                       type: "string",
+                      format: "email",
                     },
                     tags: {
                       type: "object",
@@ -179,6 +163,7 @@ module.exports = {
                       },
                     },
                   },
+                  required: ["phone"],
                 },
               },
             },
@@ -220,6 +205,7 @@ module.exports = {
                   },
                 },
               },
+              required: ["id"],
             },
             description: {
               type: "object",
@@ -244,7 +230,6 @@ module.exports = {
                     },
                     content_type: {
                       type: "string",
-                      enum: ["text/plain", "text/html", "application/json"],
                     },
                   },
                 },
@@ -258,7 +243,6 @@ module.exports = {
                       },
                       url: {
                         type: "string",
-                        format: "uri",
                       },
                       signature: {
                         type: "string",
@@ -323,7 +307,7 @@ module.exports = {
                 network_participant_id: {
                   type: "string",
                 },
-                issue_source_type: {
+                type: {
                   type: "string",
                   enum: ["CONSUMER", "SELLER", "INTERFACING-NP"],
                 },
@@ -347,11 +331,9 @@ module.exports = {
                   properties: {
                     start: {
                       type: "string",
-                      format: "date-time",
                     },
                     end: {
                       type: "string",
-                      format: "date-time",
                     },
                   },
                 },
@@ -368,14 +350,12 @@ module.exports = {
                       type: "array",
                       items: {
                         type: "string",
-                        format: "date-time",
                       },
                     },
                     times: {
                       type: "array",
                       items: {
                         type: "string",
-                        format: "date-time",
                       },
                     },
                   },
@@ -400,11 +380,9 @@ module.exports = {
                   properties: {
                     start: {
                       type: "string",
-                      format: "date-time",
                     },
                     end: {
                       type: "string",
-                      format: "date-time",
                     },
                   },
                 },
@@ -421,14 +399,12 @@ module.exports = {
                       type: "array",
                       items: {
                         type: "string",
-                        format: "date-time",
                       },
                     },
                     times: {
                       type: "array",
                       items: {
                         type: "string",
-                        format: "date-time",
                       },
                     },
                   },
@@ -453,7 +429,6 @@ module.exports = {
                       },
                       updated_at: {
                         type: "string",
-                        format: "date-time",
                       },
                       updated_by: {
                         type: "object",
@@ -523,14 +498,12 @@ module.exports = {
                                     },
                                     type: {
                                       type: "string",
-                                      default: "VerifiableCredential",
                                     },
                                     issuer: {
                                       type: "string",
                                     },
                                     issuance_date: {
                                       type: "string",
-                                      format: "date-time",
                                     },
                                     credential_subject: {
                                       type: "object",
@@ -575,7 +548,7 @@ module.exports = {
                           },
                         },
                       },
-                      remarks: {
+                      short_desc: {
                         type: "string",
                       },
                     },
@@ -597,7 +570,6 @@ module.exports = {
                       },
                       updated_at: {
                         type: "string",
-                        format: "date-time",
                       },
                       updated_by: {
                         type: "object",
@@ -621,6 +593,7 @@ module.exports = {
                               },
                               email: {
                                 type: "string",
+                                format: "email",
                               },
                               tags: {
                                 type: "object",
@@ -652,6 +625,7 @@ module.exports = {
                               },
                               dob: {
                                 type: "string",
+                                format: "date",
                               },
                               gender: {
                                 type: "string",
@@ -669,11 +643,9 @@ module.exports = {
                                     },
                                     issuer: {
                                       type: "string",
-                                      default: "VerifiableCredential",
                                     },
                                     issuance_date: {
                                       type: "string",
-                                      format: "date-time",
                                     },
                                     credential_subject: {
                                       type: "object",
@@ -718,7 +690,7 @@ module.exports = {
                           },
                         },
                       },
-                      remarks: {
+                      short_desc: {
                         type: "string",
                       },
                       cascaded_level: {
@@ -734,7 +706,7 @@ module.exports = {
               items: {
                 type: "object",
                 properties: {
-                  respondant_info: {
+                  respondent_info: {
                     type: "object",
                     properties: {
                       org: {
@@ -787,6 +759,7 @@ module.exports = {
                           },
                           dob: {
                             type: "string",
+                            format: "date",
                           },
                           gender: {
                             type: "string",
@@ -804,11 +777,9 @@ module.exports = {
                                 },
                                 issuer: {
                                   type: "string",
-                                  default: "VerifiableCredential",
                                 },
                                 issuance_date: {
                                   type: "string",
-                                  format: "date-time",
                                 },
                                 credential_subject: {
                                   type: "object",
@@ -861,7 +832,10 @@ module.exports = {
                         name: {
                           type: "string",
                         },
-                        about_info: {
+                        short_desc: {
+                          type: "string",
+                        },
+                        long_desc: {
                           type: "string",
                         },
                         url: {
@@ -889,6 +863,7 @@ module.exports = {
                                 },
                                 email: {
                                   type: "string",
+                                  format: "email",
                                 },
                                 tags: {
                                   type: "object",
@@ -935,14 +910,12 @@ module.exports = {
                                       },
                                       type: {
                                         type: "string",
-                                        default: "VerifiableCredential",
                                       },
                                       issuer: {
                                         type: "string",
                                       },
                                       issuance_date: {
                                         type: "string",
-                                        format: "date-time",
                                       },
                                       credential_subject: {
                                         type: "object",
@@ -954,10 +927,6 @@ module.exports = {
                                             type: "object",
                                           },
                                         },
-                                        required: [
-                                          "id",
-                                          "additionalProperties",
-                                        ],
                                       },
                                       credential_schema: {
                                         type: "object",
@@ -971,14 +940,6 @@ module.exports = {
                                         },
                                       },
                                     },
-                                    required: [
-                                      "id",
-                                      "type",
-                                      "issuer",
-                                      "issuance_date",
-                                      "credential_subject",
-                                      "credential_schema",
-                                    ],
                                   },
                                 },
                                 tags: {
@@ -1010,31 +971,24 @@ module.exports = {
                                 },
                                 value: {
                                   type: "string",
-                                  pattern: "[+-]?([0-9]*[.])?[0-9]+",
                                 },
                                 estimated_value: {
                                   type: "string",
-                                  pattern: "[+-]?([0-9]*[.])?[0-9]+",
                                 },
                                 computed_value: {
                                   type: "string",
-                                  pattern: "[+-]?([0-9]*[.])?[0-9]+",
                                 },
                                 listed_value: {
                                   type: "string",
-                                  pattern: "[+-]?([0-9]*[.])?[0-9]+",
                                 },
                                 offered_value: {
                                   type: "string",
-                                  pattern: "[+-]?([0-9]*[.])?[0-9]+",
                                 },
                                 minimum_value: {
                                   type: "string",
-                                  pattern: "[+-]?([0-9]*[.])?[0-9]+",
                                 },
                                 maximum_value: {
                                   type: "string",
-                                  pattern: "[+-]?([0-9]*[.])?[0-9]+",
                                 },
                               },
                             },
@@ -1046,13 +1000,12 @@ module.exports = {
                         resolution_ratings: {
                           type: "object",
                           properties: {
-                            rating_value: {
+                            value: {
                               type: "string",
                             },
                           },
                         },
                       },
-                      required: ["name", "about_info", "url"],
                     },
                   },
                 },
@@ -1064,7 +1017,10 @@ module.exports = {
                 name: {
                   type: "string",
                 },
-                about_info: {
+                short_desc: {
+                  type: "string",
+                },
+                long_desc: {
                   type: "string",
                 },
                 url: {
@@ -1092,6 +1048,7 @@ module.exports = {
                         },
                         email: {
                           type: "string",
+                          format: "email",
                         },
                         tags: {
                           type: "object",
@@ -1138,14 +1095,12 @@ module.exports = {
                               },
                               type: {
                                 type: "string",
-                                default: "VerifiableCredential",
                               },
                               issuer: {
                                 type: "string",
                               },
                               issuance_date: {
                                 type: "string",
-                                format: "date-time",
                               },
                               credential_subject: {
                                 type: "object",
@@ -1157,7 +1112,6 @@ module.exports = {
                                     type: "object",
                                   },
                                 },
-                                required: ["id", "additionalProperties"],
                               },
                               credential_schema: {
                                 type: "object",
@@ -1171,14 +1125,6 @@ module.exports = {
                                 },
                               },
                             },
-                            required: [
-                              "id",
-                              "type",
-                              "issuer",
-                              "issuance_date",
-                              "credential_subject",
-                              "credential_schema",
-                            ],
                           },
                         },
                         tags: {
@@ -1210,31 +1156,24 @@ module.exports = {
                         },
                         value: {
                           type: "string",
-                          pattern: "[+-]?([0-9]*[.])?[0-9]+",
                         },
                         estimated_value: {
                           type: "string",
-                          pattern: "[+-]?([0-9]*[.])?[0-9]+",
                         },
                         computed_value: {
                           type: "string",
-                          pattern: "[+-]?([0-9]*[.])?[0-9]+",
                         },
                         listed_value: {
                           type: "string",
-                          pattern: "[+-]?([0-9]*[.])?[0-9]+",
                         },
                         offered_value: {
                           type: "string",
-                          pattern: "[+-]?([0-9]*[.])?[0-9]+",
                         },
                         minimum_value: {
                           type: "string",
-                          pattern: "[+-]?([0-9]*[.])?[0-9]+",
                         },
                         maximum_value: {
                           type: "string",
-                          pattern: "[+-]?([0-9]*[.])?[0-9]+",
                         },
                       },
                     },
@@ -1246,13 +1185,12 @@ module.exports = {
                 resolution_ratings: {
                   type: "object",
                   properties: {
-                    rating_value: {
+                    value: {
                       type: "string",
                     },
                   },
                 },
               },
-              required: ["name", "about_info", "url"],
             },
             rating: {
               type: "string",
@@ -1271,9 +1209,6 @@ module.exports = {
                         "TRANSACTION-COUNTERPARTY-NP",
                         "CASCADED-COUNTERPARTY-NP",
                       ],
-                    },
-                    merchant_order_id: {
-                      type: "string",
                     },
                     organization: {
                       type: "object",
@@ -1297,6 +1232,7 @@ module.exports = {
                             },
                             email: {
                               type: "string",
+                              format: "email",
                             },
                             tags: {
                               type: "object",
@@ -1343,14 +1279,12 @@ module.exports = {
                                   },
                                   type: {
                                     type: "string",
-                                    default: "VerifiableCredential",
                                   },
                                   issuer: {
                                     type: "string",
                                   },
                                   issuance_date: {
                                     type: "string",
-                                    format: "date-time",
                                   },
                                   credential_subject: {
                                     type: "object",
@@ -1398,13 +1332,10 @@ module.exports = {
                     resolution_support: {
                       type: "object",
                       properties: {
-                        respondentChatLink: {
+                        chat_link: {
                           type: "string",
                         },
-                        respondentEmail: {
-                          type: "string",
-                        },
-                        respondentContact: {
+                        contact: {
                           type: "object",
                           properties: {
                             phone: {
@@ -1412,6 +1343,7 @@ module.exports = {
                             },
                             email: {
                               type: "string",
+                              format: "email",
                             },
                             tags: {
                               type: "object",
@@ -1429,78 +1361,30 @@ module.exports = {
                             },
                           },
                         },
-                        respondentFaqs: {
-                          type: "object",
-                          properties: {
-                            additionalProp1: {
-                              type: "object",
-                              properties: {
-                                question: {
-                                  type: "string",
-                                },
-                                Answer: {
-                                  type: "string",
-                                },
+                        faqs: {
+                          type: "array",
+                          items: {
+                            type: "object",
+                            properties: {
+                              question: {
+                                type: "string",
                               },
-                            },
-                            additionalProp2: {
-                              type: "object",
-                              properties: {
-                                question: {
-                                  type: "string",
-                                },
-                                Answer: {
-                                  type: "string",
-                                },
-                              },
-                            },
-                            additionalProp3: {
-                              type: "object",
-                              properties: {
-                                question: {
-                                  type: "string",
-                                },
-                                Answer: {
-                                  type: "string",
-                                },
+                              answer: {
+                                type: "string",
                               },
                             },
                           },
                         },
                         additional_sources: {
-                          type: "object",
-                          properties: {
-                            additionalProp1: {
-                              type: "object",
-                              properties: {
-                                type: {
-                                  type: "string",
-                                },
-                                link: {
-                                  type: "string",
-                                },
+                          type: "array",
+                          items: {
+                            type: "object",
+                            properties: {
+                              type: {
+                                type: "string",
                               },
-                            },
-                            additionalProp2: {
-                              type: "object",
-                              properties: {
-                                type: {
-                                  type: "string",
-                                },
-                                link: {
-                                  type: "string",
-                                },
-                              },
-                            },
-                            additionalProp3: {
-                              type: "object",
-                              properties: {
-                                type: {
-                                  type: "string",
-                                },
-                                link: {
-                                  type: "string",
-                                },
+                              link: {
+                                type: "string",
                               },
                             },
                           },
@@ -1539,14 +1423,12 @@ module.exports = {
                                         },
                                         type: {
                                           type: "string",
-                                          default: "VerifiableCredential",
                                         },
                                         issuer: {
                                           type: "string",
                                         },
                                         issuance_date: {
                                           type: "string",
-                                          format: "date-time",
                                         },
                                         credential_subject: {
                                           type: "object",
@@ -1611,6 +1493,7 @@ module.exports = {
                                   },
                                   email: {
                                     type: "string",
+                                    format: "email",
                                   },
                                   jcard: {
                                     type: "object",
@@ -1635,7 +1518,6 @@ module.exports = {
                                 type: "string",
                               },
                             },
-                            required: ["gro_type"],
                           },
                         },
                       },
@@ -1643,42 +1525,32 @@ module.exports = {
                   },
                 },
               },
-              required: ["respondent_info"],
             },
             resolution: {
               type: "object",
               properties: {
-                resolution: {
+                short_desc: {
                   type: "string",
                 },
-                resolution_remarks: {
+                long_desc: {
                   type: "string",
                 },
                 gro_remarks: {
                   type: "string",
                 },
-                dispute_resolution_remarks: {
+                odr_remarks: {
                   type: "string",
-                },
-                resolution_action: {
-                  type: "string",
-                  enum: ["RESOLVE", " REJECT"],
                 },
                 action_triggered: {
                   type: "string",
-                  enum: [
-                    "REFUND",
-                    "REPLACEMENT",
-                    "RETURN",
-                    "CANCEL",
-                    "NO-ACTION",
-                  ],
+                },
+                action: {
+                  type: "string",
                 },
                 refund_amount: {
                   type: "string",
                 },
               },
-              required: ["resolution_remarks", "resolution_action"],
             },
             additional_info_required: {
               type: "array",
@@ -1711,11 +1583,6 @@ module.exports = {
                               },
                               content_type: {
                                 type: "string",
-                                enum: [
-                                  "text/plain",
-                                  "text/html",
-                                  "application/json",
-                                ],
                               },
                             },
                           },
@@ -1729,7 +1596,6 @@ module.exports = {
                                 },
                                 url: {
                                   type: "string",
-                                  format: "url",
                                 },
                                 signature: {
                                   type: "string",
@@ -1782,11 +1648,6 @@ module.exports = {
                               },
                               content_type: {
                                 type: "string",
-                                enum: [
-                                  "text/plain",
-                                  "text/html",
-                                  "application/json",
-                                ],
                               },
                             },
                           },
@@ -1800,7 +1661,6 @@ module.exports = {
                                 },
                                 url: {
                                   type: "string",
-                                  format: "url",
                                 },
                                 signature: {
                                   type: "string",
@@ -1842,7 +1702,6 @@ module.exports = {
           required: [
             "id",
             "order_details",
-            "description",
             "issue_type",
             "expected_response_time",
             "expected_resolution_time",
@@ -1851,7 +1710,22 @@ module.exports = {
           ],
         },
       },
+      required: ["issue"],
+    },
+    error: {
+      type: "object",
+      properties: {
+        code: {
+          type: "string",
+        },
+        path: {
+          type: "string",
+        },
+        message: {
+          type: "string",
+        },
+      },
     },
   },
-  required: ["context"],
+  required: ["context", "message"],
 };
