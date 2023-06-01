@@ -21,10 +21,7 @@ const checkSupport = require("./retail/retSupport");
 const checkOnSupport = require("./retail/retOnSupport");
 const checkUpdate = require("./retail/retUpdate");
 const checkOnUpdate = require("./retail/retOnUpdate");
-const checkIssue = require("./retail/retIssue");
-const checkOnIssue = require("./retail/retOnIssue");
-const checkIssueStatus = require("./retail/retIssueStatus");
-const checkOnIssueStatus = require("./retail/retOnIssueStatus");
+
 //TAT in on_select = sumof(time to ship in /on_search and TAT by LSP in logistics /on_search)
 // If non-serviceable in /on_select, there should be domain-error
 
