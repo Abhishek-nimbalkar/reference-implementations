@@ -1,10 +1,10 @@
 const fs = require("fs");
 const _ = require("lodash");
 const dao = require("../dao/dao");
-const checkIssue = require("./retail/retIssue");
-const checkOnIssue = require("./retail/retOnIssue");
-const checkIssueStatus = require("./retail/retIssueStatus");
-const checkOnIssueStatus = require("./retail/retOnIssueStatus");
+const checkIssue = require("./igm/retIssue");
+const checkOnIssue = require("./igm/retOnIssue");
+const checkIssueStatus = require("./igm/retIssueStatus");
+const checkOnIssueStatus = require("./igm/retOnIssueStatus");
 // const path = require("path");
 const { getObjValues } = require("./utils");
 
