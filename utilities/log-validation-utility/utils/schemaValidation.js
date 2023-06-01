@@ -5,9 +5,9 @@ const fs = require("fs");
 const validateSchema = (domain, api, data) => {
   console.log(`Inside Schema Validation for domain: ${domain}, api: ${api}`);
   let errObj = {};
-
+  
   const schmaVldtr = schemaValidator(domain, api, data);
-
+  
   const datavld = schmaVldtr;
   if (datavld.status === "fail") {
     let res = datavld.errors;
@@ -19,6 +19,7 @@ const validateSchema = (domain, api, data) => {
       errObj[key] = `${res[i].details} ${res[i].message}`;
       i++;
     }
+    // console.log('errObj', errObj)
     return errObj;
   } else return "error";
 };

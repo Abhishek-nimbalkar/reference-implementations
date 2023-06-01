@@ -14,6 +14,8 @@ const confirmSchema = require("./confirmSchema");
 const statusSchema = require("./statusSchema");
 const updateSchema = require("./updateSchema");
 const cancelSchema = require("./cancelSchema");
+const issueStatusSchema = require("./issueStatusSchema");
+const onIssueStatusSchema = require("./onIssueStatusSchema");
 const issueSchema = require("./issueSchema");
 const onIssueSchema = require("./onIssueSchema");
 const issueStatusSchema = require("./issueStatusSchema");
@@ -159,6 +161,16 @@ const validate_schema_on_support_retail_for_json = (data) => {
   error_list = validate_schema(item_data, (schema = onSupportSchema));
   return formatted_error(error_list);
 };
+const validate_schema_issue_status_retail_for_json = (data) => {
+  error_list = validate_schema(data, (schema = issueStatusSchema));
+  return formatted_error(error_list);
+};
+
+const validate_schema_on_issue_status_retail_for_json = (data) => {
+  // item_data = data["message"];
+  error_list = validate_schema(data, (schema = onIssueStatusSchema));
+  return formatted_error(error_list);
+};
 
 const validate_schema_issue_retail_for_json = (data) => {
   error_list = validate_schema(data, (schema = issueSchema));
@@ -170,16 +182,6 @@ const validate_schema_on_issue_retail_for_json = (data) => {
   return formatted_error(error_list);
 };
 
-const validate_schema_issue_status_retail_for_json = (data) => {
-  error_list = validate_schema(data, (schema = issueStatusSchema));
-  return formatted_error(error_list);
-};
-
-const validate_schema_on_issue_status_retail_for_json = (data) => {
-  item_data = data["message"];
-  error_list = validate_schema(item_data, (schema = onIssueStatusSchema));
-  return formatted_error(error_list);
-};
 
 module.exports = {
   validate_schema_search_retail_for_json,
