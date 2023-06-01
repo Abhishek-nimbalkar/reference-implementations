@@ -10,8 +10,31 @@ const checkIssue = (dirPath) => {
 
   try {
     let issue = fs.readFileSync(dirPath + `/${constants.RET_ISSUE}.json`);
-    console.log('issue', issue)
     issue = JSON.parse(issue);
+
+    try {
+      console.log(`Checking context for ${constants.RET_SEARCH} API`); //context checking
+      res = checkContext(issue.context, constants.RET_ISSUE);
+      dao.setValue("igmTmpstmp", issue.context.timestamp);
+      dao.setValue("igmTxnId", issue.context.transaction_id);
+      dao.setValue("igmType", issue.message.issue.issue_type);
+      dao.setValue("igmCoreVersion", issue.context.core_version)
+      dao.setValue(
+        "igmDomain",
+        issue.message.issue.complainant_info.contact.phone
+      );
+      // msgIdSet.add(issue.context.message_id);
+      if (!res.valid) {
+        Object.assign(issueObj, res.ERRORS);
+      }
+    } catch (error) {
+      console.log(
+        `!!Some error occurred while checking /${constants.RET_ISSUE} context`,
+        error
+      );
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     try {
       console.log(`Validating Schema for ${constants.RET_ISSUE} API`);
@@ -38,6 +61,149 @@ const checkIssue = (dirPath) => {
         error
       );
     }
+
+    try {
+      console.log(`Phone Number Check for /${constants.RET_ISSUE}`);
+      // on_issue.message.issue.issue_actions.respondent_actions[0].updated_by.contact.phone
+      if (!_.inRange(issue.message.issue.complainant_info.contact.phone, 1000000000, 99999999999)) {
+        issueObj.Phn = `Phone Number for /${constants.RET_ISSUE} api is not in the valid Range`;
+      }
+      dao.setValue(
+        "igmPhn",
+        issue.message.issue.complainant_info.contact.phone
+      );
+    } catch (error) {
+      console.log(
+        `Error while checking phone number for /${constants.RET_ISSUE} api`,
+        error
+      );
+    }
+
+    try {
+      console.log(
+        `Checking Expected Response time for /${constants.RET_ISSUE}`
+      );
+      if (
+        !_.gt(
+          issue.context.timestamp,
+          issue.message.issue.expected_response_time.duration
+        )
+      ) {
+        issueObj.respTime = `Expected Response Time /${constants.RET_ISSUE} api should be greater than request time`;
+      }
+      dao.setValue(
+        "igmExpRespTime",
+        issue.message.issue.expected_response_time.duration
+      );
+    } catch (error) {
+      console.log(
+        `Error while checking phone number for /${constants.RET_issue} api`,
+        error
+      );
+    }
+
+    try {
+      console.log(
+        `Checking time of creation and updation for /${constants.RET_ISSUE}`
+      );
+      if (
+        !_.isEqual(
+          issue.message.issue.created_at,
+          issue.message.issue.updated_at
+        )
+      ) {
+        if (!_.lte(issue.context.timestamp, issue.message.issue.created_at)) {
+          issueObj.updatedTime = `Time of Creation for /${constants.RET_ISSUE} api should be less than current timestamp`;
+        }
+        issueObj.respTime = `Time of Creation and time of updation for /${constants.RET_ISSUE} api should be same`;
+      }
+      dao.setValue("igmCreatedAt", issue.message.issue.created_at);
+    } catch (error) {
+      console.log(
+        `Error while checking time of creation and updation for /${constants.RET_issue} api`,
+        error
+      );
+    }
+
+    try {
+      console.log(`Checking organization's name for /${constants.RET_ISSUE}`);
+      let org_name =
+        issue.message.issue.issue_actions.complainant_actions[0].updated_by.org
+          .name;
+      let org_id = org_name.split("::");
+      if (!_.isEqual(issue.context.bap_id, org_id[0])) {
+        issueObj.org_name = `Organization's Name for /${constants.RET_ISSUE} api mismatched with bap id`;
+      }
+      if (!_.lte(issue.context.domain, org_id[1])) {
+        issueObj.org_domain = `Domain of organization for /${constants.RET_ISSUE} api mismatched with domain in context`;
+      }
+    } catch (error) {
+      console.log(
+        `Error while checking organization's name for /${constants.RET_ISSUE} api`,
+        error
+      );
+    }
+
+    
+    
+
+
+
+    // try {
+    //   console.log(
+    //     `Comparing city of /${constants.RET_SEARCH} and /${constants.RET_ISSUE}`
+    //   );
+    //   if (!_.isEqual(dao.getValue("city"), issue.context.city)) {
+    //     issueObj.city = `City code mismatch in /${constants.RET_SEARCH} and /${constants.RET_ISSUE}`;
+    //   }
+    // } catch (error) {
+    //   console.log(
+    //     `Error while comparing city in /${constants.RET_SEARCH} and /${constants.RET_ISSUE}`,
+    //     error
+    //   );
+    // }
+
+    // try {
+    //   console.log(
+    //     `Comparing timestamp of /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE}`
+    //   );
+    //   if (_.gte(dao.getValue("tmpstmp"), issue.context.timestamp)) {
+    //     issueObj.tmpstmp = `Timestamp for /${constants.RET_ONSEARCH} api cannot be greater than or equal to /${constants.RET_ISSUE} api`;
+    //   }
+    //   dao.setValue("tmpstmp", issue.context.timestamp);
+    // } catch (error) {
+    //   console.log(
+    //     `Error while comparing timestamp for /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE} api`,
+    //     error
+    //   );
+    // }
+
+    // try {
+    //   console.log(
+    //     `Comparing transaction Ids of /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE}`
+    //   );
+    //   dao.setValue("txnId", issue.context.transaction_id);
+    // } catch (error) {
+    //   console.log(
+    //     `Error while comparing transaction ids for /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE} api`,
+    //     error
+    //   );
+    // }
+
+    // try {
+    //   console.log(
+    //     `Comparing Message Ids of /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE}`
+    //   );
+    //   if (_.isEqual(dao.getValue("msgId"), issue.context.message_id)) {
+    //     issueObj.msgId = `Message Id for /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE} api cannot be same`;
+    //   }
+    //   dao.setValue("msgId", issue.context.message_id);
+    // } catch (error) {
+    //   console.log(
+    //     `Error while comparing message ids for /${constants.RET_ONSEARCH} and /${constants.RET_ISSUE} api`,
+    //     error
+    //   );
+    // }
 
     dao.setValue("issueObj", issueObj);
   } catch (err) {
