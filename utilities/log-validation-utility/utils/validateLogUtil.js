@@ -21,10 +21,7 @@ const checkSupport = require("./retail/retSupport");
 const checkOnSupport = require("./retail/retOnSupport");
 const checkUpdate = require("./retail/retUpdate");
 const checkOnUpdate = require("./retail/retOnUpdate");
-const checkIssue = require("./retail/retIssue");
-const checkOnIssue = require("./retail/retOnIssue");
-const checkIssueStatus = require("./retail/retIssueStatus");
-const checkOnIssueStatus = require("./retail/retOnIssueStatus");
+
 //TAT in on_select = sumof(time to ship in /on_search and TAT by LSP in logistics /on_search)
 // If non-serviceable in /on_select, there should be domain-error
 
@@ -35,7 +32,7 @@ const validateLogs = (dirPath) => {
 
   //SEARCH API
 
-  // let srchResp = checkSearch(dirPath, msgIdSet);
+  let srchResp = checkSearch(dirPath, msgIdSet);
 
   // ON_SEARCH API
 
@@ -102,24 +99,6 @@ const validateLogs = (dirPath) => {
   // //ON_SUPPORT API
   let onSprtResp = checkOnSupport(dirPath, msgIdSet);
 
-  //ISSUE_STATUS API
-  let issueStatusObj = checkIssueStatus(dirPath, msgIdSet);
-
-  //ON_ISSUE_STATUS API
-  let onissueStatusObj = checkOnIssueStatus(dirPath,msgIdSet);
-
-  //ISSUE API
-  let issueResp = checkIssue(dirPath, msgIdSet);
-
-  //ON_ISSUE API
-  let onIssueResp = checkOnIssue(dirPath, msgIdSet);
-
-  // //ISSUE_STATUS API
-  let issueStatusResp = checkIssueStatus(dirPath, msgIdSet);
-
-  // //ON_ISSUE_STATUS API
-  let onissueStatusResp = checkOnIssueStatus(dirPath, msgIdSet);
-
   let logReport = "";
 
   let srchObj = dao.getValue("srchObj");
@@ -140,12 +119,7 @@ const validateLogs = (dirPath) => {
   let onUpdtObj = dao.getValue("onUpdtObj");
   let statObj = dao.getValue("statObj");
   let onStatObj = dao.getValue("onStatObj");
-  let issStatObj = dao.getValue("issueStatusObj");
-  let onIssStatObj=dao.getValue("onIssueStatusObj");
-  let issueObj = dao.getValue("issueObj");
-  let onissueObj = dao.getValue("onissueObj");
-  let issueStatObj = dao.getValue("issueStatusObj");
-  let onIssueStatObj = dao.getValue("onIssueStatusObj");
+
   try {
     console.log("Flushing DB Data");
     dao.dropDB();
@@ -224,29 +198,6 @@ const validateLogs = (dirPath) => {
   }
   if (!_.isEmpty(onSprtObj)) {
     logReport += `**/on_support** \n${getObjValues(onSprtObj)}\n`;
-  }
-  if(!_.isEmpty(issStatObj)){
-    logReport += `**/on_issue_status** \n${getObjValues(issStatObj)}\n`;
-  }
-
-  if(!_.isEmpty(onIssStatObj)){
-    logReport += `**/on_issue_status** \n${getObjValues(onIssStatObj)}\n`;
-  }
-
-  if (!_.isEmpty(issueObj)) {
-    logReport += `**/issue** \n${getObjValues(issueObj)}\n`;
-  }
-
-  if (!_.isEmpty(onissueObj)) {
-    logReport += `**/on_issue** \n${getObjValues(onissueObj)}\n`;
-  }
-
-  if (!_.isEmpty(issueStatObj)) {
-    logReport += `**/on_issue_status** \n${getObjValues(issueStatObj)}\n`;
-  }
-
-  if (!_.isEmpty(onIssueStatObj)) {
-    logReport += `**/on_issue_status** \n${getObjValues(onIssueStatObj)}\n`;
   }
 
   fs.writeFileSync("log_report.md", logReport);

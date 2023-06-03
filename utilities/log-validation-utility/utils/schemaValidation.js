@@ -7,7 +7,6 @@ const validateSchema = (domain, api, data) => {
   let errObj = {};
   
   const schmaVldtr = schemaValidator(domain, api, data);
-  
   const datavld = schmaVldtr;
   if (datavld.status === "fail") {
     let res = datavld.errors;

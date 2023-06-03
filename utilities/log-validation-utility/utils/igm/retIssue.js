@@ -6,6 +6,7 @@ const constants = require("../constants");
 const validateSchema = require("../schemaValidation");
 
 const checkIssue = (dirPath) => {
+
   let issueObj = {};
 
   try {
