@@ -14,10 +14,10 @@ const confirmSchema = require("./confirmSchema");
 const statusSchema = require("./statusSchema");
 const updateSchema = require("./updateSchema");
 const cancelSchema = require("./cancelSchema");
-const issueSchema = require("./issueSchema");
-const onIssueSchema = require("./onIssueSchema");
-const issueStatusSchema = require("./issueStatusSchema");
-const onIssueStatusSchema = require("./onIssueStatusSchema");
+const issueSchema = require("../igm_api_json_schema/issueSchema");
+const onIssueSchema = require("../igm_api_json_schema/onIssueSchema");
+const issueStatusSchema = require("../igm_api_json_schema/issueStatusSchema");
+const onIssueStatusSchema = require("../igm_api_json_schema/onIssueStatusSchema");
 
 const Ajv = require("ajv");
 const ajv = new Ajv({
