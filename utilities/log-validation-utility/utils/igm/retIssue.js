@@ -15,7 +15,7 @@ const checkIssue = (dirPath) => {
 
     try {
       console.log(`Validating Schema for ${constants.RET_ISSUE} API`);
-      const vs = validateSchema("retail", constants.RET_ISSUE, issue);
+      const vs = validateSchema("igm", constants.RET_ISSUE, issue);
       if (vs != "error") {
         Object.assign(issueObj, vs);
       }

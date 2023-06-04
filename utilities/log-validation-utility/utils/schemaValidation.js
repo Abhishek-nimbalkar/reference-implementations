@@ -1,12 +1,17 @@
 const schemaValidator = require("../schema/main");
+const { validate_schema_for_igm_json } = require("../schema/main");
 const path = require("path");
 const fs = require("fs");
 
 const validateSchema = (domain, api, data) => {
   console.log(`Inside Schema Validation for domain: ${domain}, api: ${api}`);
   let errObj = {};
-  
-  const schmaVldtr = schemaValidator(domain, api, data);
+  var schmaVldtr;
+  if (domain !== "igm") {
+    schmaVldtr = validate_schema_for_retail_json(domain, api, data);
+  } else {
+    schmaVldtr = validate_schema_for_igm_json(domain, api, data);
+  }
   const datavld = schmaVldtr;
   if (datavld.status === "fail") {
     let res = datavld.errors;
