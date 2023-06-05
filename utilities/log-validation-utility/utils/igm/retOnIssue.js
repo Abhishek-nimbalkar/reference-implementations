@@ -40,59 +40,139 @@ const checkOnIssue = (dirPath) => {
 
     try {
       console.log(
-        `Comparing city of /${constants.RET_SEARCH} and /${constants.RET_ONISSUE}`
+        `Comparing transaction ID of /${constants.RET_ISSUE} and /${constants.RET_ONISSUE}`
       );
-      if (!_.isEqual(dao.getValue("city"), on_issue.context.city)) {
-        onissueObj.city = `City code mismatch in /${constants.RET_SEARCH} and /${constants.RET_ONISSUE}`;
+      if (
+        !_.isEqual(dao.getValue("igmTxnId"), on_issue.context.transaction_id)
+      ) {
+        onissueObj.igmTxnId = `City code mismatch in /${constants.RET_ISSUE} and /${constants.RET_ONISSUE}`;
       }
     } catch (error) {
       console.log(
-        `Error while comparing city in /${constants.RET_SEARCH} and /${constants.RET_ONISSUE}`,
+        `Error while comparing transaction ID in /${constants.RET_ISSUE} and /${constants.RET_ONISSUE}`,
         error
       );
     }
 
     try {
       console.log(
-        `Comparing timestamp of /${constants.RET_ONSEARCH} and /${constants.RET_ONISSUE}`
+        `Comparing Domain of /${constants.RET_ISSUE} and /${constants.RET_ONISSUE}`
       );
-      if (_.gte(dao.getValue("tmpstmp"), on_issue.context.timestamp)) {
-        onissueObj.tmpstmp = `Timestamp for /${constants.RET_ONSEARCH} api cannot be greater than or equal to /${constants.RET_ONISSUE} api`;
+      if (!_.isEqual(dao.getValue("igmDomain"), on_issue.context.domain)) {
+        onissueObj.igmDomain = `Domain for /${constants.RET_ISSUE} api should be equal to /${constants.RET_ONISSUE} api`;
       }
-      dao.setValue("tmpstmp", on_issue.context.timestamp);
+      dao.setValue("igmDomain", on_issue.context.domain);
     } catch (error) {
       console.log(
-        `Error while comparing timestamp for /${constants.RET_ONSEARCH} and /${constants.RET_ONISSUE} api`,
+        `Error while comparing Domain for /${constants.RET_ISSUE} and /${constants.RET_ONISSUE} api`,
         error
       );
     }
 
     try {
       console.log(
-        `Comparing transaction Ids of /${constants.RET_ONSEARCH} and /${constants.RET_ONISSUE}`
+        `Comparing core version of /${constants.RET_ISSUE} and /${constants.RET_ONISSUE}`
       );
-      dao.setValue("txnId", on_issue.context.transaction_id);
+      dao.setValue("txnId", on_issue.context.core_version);
     } catch (error) {
       console.log(
-        `Error while comparing transaction ids for /${constants.RET_ONSEARCH} and /${constants.RET_ONISSUE} api`,
+        `Error while comparing core version for /${constants.RET_ISSUE} and /${constants.RET_ONISSUE} api`,
         error
       );
     }
 
     try {
-      console.log(
-        `Comparing Message Ids of /${constants.RET_ONSEARCH} and /${constants.RET_ONISSUE}`
-      );
-      if (_.isEqual(dao.getValue("msgId"), on_issue.context.message_id)) {
-        onissueObj.msgId = `Message Id for /${constants.RET_ONSEARCH} and /${constants.RET_ONISSUE} api cannot be same`;
+      console.log(`Phone Number Check for /${constants.RET_ONISSUE}`);
+      // on_issue.message.issue.issue_actions.respondent_actions[0].updated_by.contact.phone
+      if (
+        !_.isEqual(
+          dao.getValue("igmPhn"),
+          on_issue.message.issue.complainant_info.contact.phone
+        )
+      ) {
+        if (
+          !_.inRange(
+            issue.message.issue.complainant_info.contact.phone,
+            1000000000,
+            99999999999
+          )
+        ) {
+          onissueObj.Phn = `Phone Number for /${constants.RET_ONISSUE} api is not in the valid Range`;
+        }
+        onissueObj.Phn = `Phone Number for /${constants.RET_ONISSUE} api does not match with /${constants.RET_ISSUE} api`;
       }
-      dao.setValue("msgId", on_issue.context.message_id);
     } catch (error) {
       console.log(
-        `Error while comparing message ids for /${constants.RET_ONSEARCH} and /${constants.RET_ONISSUE} api`,
+        `Error while checking phone number for /${constants.RET_ONISSUE} api`,
         error
       );
     }
+
+
+    try {
+      console.log(
+        `Checking Expected Response time for /${constants.RET_ONISSUE}`
+      );
+      if (
+        !_.gt(
+          on_issue.context.timestamp,
+          on_issue.message.issue.expected_response_time.duration
+        )
+      ) {
+        onissueObj.respTime = `Expected Response Time /${constants.RET_ONISSUE} api should be greater than request time`;
+      }
+    } catch (error) {
+      console.log(
+        `Error while checking phone number for /${constants.RET_ONISSUE} api`,
+        error
+      );
+    }
+
+
+    try {
+      console.log(
+        `Checking time of creation and updation for /${constants.RET_ONISSUE}`
+      );
+      if (
+        !_.isEqual(
+          on_issue.message.issue.created_at,
+          on_issue.message.issue.updated_at
+        )
+      ) {
+        issueObj.respTime = `Time of Creation and time of updation for /${constants.RET_ONISSUE} api should be same`;
+      }
+      if (!_.lte(on_issue.message.issue.created_at,issue.context.timestamp)) {
+        onissueObj.updatedTime = `Time of Creation for /${constants.RET_ONISSUE} api should be less than current timestamp`;
+      }
+      dao.setValue("igmCreatedAt", on_issue.message.issue.created_at);
+    } catch (error) {
+      console.log(
+        `Error while checking time of creation and updation for /${constants.RET_ONISSUE} api`,
+        error
+      );
+    }
+
+
+    try {
+      console.log(`Checking organization's name for /${constants.RET_ONISSUE}`);
+      let org_name =
+        onissue.message.issue.issue_actions.complainant_actions[0].updated_by.org
+          .name;
+      let org_id = org_name.split("::");
+      if (!_.isEqual(on_issue.context.bap_id, org_id[0])) {
+        onissueObj.org_name = `Organization's Name for /${constants.RET_ONISSUE} api mismatched with bap id`;
+      }
+      if (!_.lte(on_issue.context.domain, org_id[1])) {
+        onissueObj.org_domain = `Domain of organization for /${constants.RET_ONISSUE} api mismatched with domain in context`;
+      }
+    } catch (error) {
+      console.log(
+        `Error while checking organization's name for /${constants.RET_ONISSUE} api`,
+        error
+      );
+    }
+
+
 
     dao.setValue("onissueObj", onissueObj);
   } catch (err) {

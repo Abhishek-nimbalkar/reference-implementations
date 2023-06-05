@@ -101,7 +101,7 @@ const checkIssue = (dirPath) => {
       );
     } catch (error) {
       console.log(
-        `Error while checking phone number for /${constants.RET_issue} api`,
+        `Error while checking response time for /${constants.RET_issue} api`,
         error
       );
     }
@@ -116,15 +116,15 @@ const checkIssue = (dirPath) => {
           issue.message.issue.updated_at
         )
       ) {
-        if (!_.lte(issue.context.timestamp, issue.message.issue.created_at)) {
-          issueObj.updatedTime = `Time of Creation for /${constants.RET_ISSUE} api should be less than current timestamp`;
-        }
         issueObj.respTime = `Time of Creation and time of updation for /${constants.RET_ISSUE} api should be same`;
+      }
+      if (!_.lte(issue.message.issue.created_at,issue.context.timestamp)) {
+        issueObj.updatedTime = `Time of Creation for /${constants.RET_ISSUE} api should be less than current timestamp`;
       }
       dao.setValue("igmCreatedAt", issue.message.issue.created_at);
     } catch (error) {
       console.log(
-        `Error while checking time of creation and updation for /${constants.RET_issue} api`,
+        `Error while checking time of creation and updation for /${constants.RET_ISSUE} api`,
         error
       );
     }
